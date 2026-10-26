@@ -23,7 +23,7 @@ This repository is the camera-only version of an earlier robot that had 45 senso
 11. [Motor sizing](#motor-sizing)
 12. [Repository layout](#repository-layout)
 13. [Things that went wrong on the way](#things-that-went-wrong-on-the-way)
-14. [What is next](#what-is-next)
+14. [Future work](#future-work)
 
 ---
 
@@ -401,9 +401,35 @@ docs/images/                 Figures and viewer screenshots used above
 - **The search rewarded the wrong thing.** See [Tuning the grab with a search](#tuning-the-grab-with-a-search).
 - **Ordering matters more than it looks.** Turning before bending the neck, and parking to one side, each turned a failure into a lift.
 
-## What is next
+## Future work
 
-- Run the final defaults on the Mac viewer and fine-tune `PARK_X` and `WRAP_LATERAL` from what it shows.
-- Close the loop. The grab is open loop; the robot cannot tell if it has lost the box. A camera-driven correction during the cinch is the obvious next step.
-- A learned policy. Training the grab with reinforcement learning on the same camera inputs was planned. A reward design was discussed (height gain, staying upright, a small contact guide, penalties for toppling and over-force) but no environment has been built.
-- A cleaner carry. The box ends tilted about 30 degrees; a better coil position or a hook-shaped tip would keep it upright.
+### Closing the loop
+
+The grab in this repository is an open-loop, hand-parameterised sequence. Its ten settings were tuned in simulation by CMA-ES, but the controller never uses what it sees after the reach begins. The result is a narrow success region: a change of about 1 cm in the park position, or a rounding change in a setting, can flip a run from a lift to a toppled box (see [Results and honest status](#results-and-honest-status)). Closing the loop with the existing camera stream is the most direct way to widen that region.
+
+### Learning the grab with reinforcement learning
+
+We propose to replace the fixed sequence with a policy trained by reinforcement learning, under the same constraint used throughout this work: the policy may observe only camera-derived quantities and its own commands. No contact, force, encoder or inertial signal is available to it at deployment.
+
+**Formulation.** The task is an episodic partially observable Markov decision process. An episode starts from the parked, aligned state produced by the camera pipeline and ends when the box is lifted, dropped or toppled, or when a time limit is reached.
+
+| Element | Proposed definition |
+|---|---|
+| Observation | Box position and bearing from the chest camera, box blob area and bounding-box aspect from the chest and tip cameras, whether the box is visible, a short history of these, and the policy's own previous commands (neck, trunk, crouch, cable targets, turn rate). No joint or contact readings |
+| Action | Small per-step changes to the commanded neck bend, trunk bend and extension, crouch, the three cable forces (within the 30 N cap) and the turn rate, rate-limited so the policy cannot command impulsive motions |
+| Initial states | The saved REACH-entry states already used by the tuning search, extended with randomised park distance (about 0.45 to 0.60 m), angle, and box placement |
+| Reward | Evaluated from simulator ground truth during training only: height gain of the box while it stays upright (primary); a small shaping term for the trunk tip approaching the box; penalties for toppling, for large box displacement during the reach, and for cable force above the cap |
+| Algorithm | PPO or SAC, warm-started by behaviour cloning of the scripted wrap so that training begins from a policy that already lifts in part of the state space |
+| Critic | Asymmetric: the critic may see the true box pose, the actor sees cameras only. Ground truth is used for learning and never reaches the deployed policy |
+
+**Reward design risk.** The earlier parameter search illustrated reward hacking directly: a score that rewarded contact found settings that touched the box by knocking it flat. The reward above therefore counts height gained while upright and treats contact only as a weak guide. Reward terms and weights remain to be chosen and ablated.
+
+**Sim-to-real.** Domain randomisation over lighting, box colour tolerance, camera pose error, friction and cable stiffness is planned, together with latency and image-noise models on the chest-camera stream.
+
+**Evaluation.** Success rate and lift height over a held-out set of start poses, compared against the scripted wrap and the CMA-tuned wrap, with the same six-start protocol used in this repository, then a wider sweep of park distance and heading. The main hypothesis is that a closed-loop policy widens the range of park positions from which the box is lifted and keeps it upright, rather than only raising the lift height.
+
+**Status.** No training environment has been built. The environment, observation set and reward are described here as a design, not as results.
+
+### Hardware and carry quality
+
+The box currently ends tilted about 30 degrees from upright, held in the coil. A better coil position or a hook-shaped tip may keep it upright. Cable motors and spools are sized in [Motor sizing](#motor-sizing); a hardware build would also need a real chest camera whose pose error is within the tolerance assumed by the close-range correction.
