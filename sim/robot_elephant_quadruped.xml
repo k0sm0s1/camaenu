@@ -1,0 +1,528 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mujoco model="elephant_quadruped">
+  <compiler angle="radian" meshdir="meshes" autolimits="true"/>
+  <option timestep="0.002" integrator="implicitfast" gravity="0 0 -9.81" iterations="80" ls_iterations="40" cone="elliptic" impratio="10"/>
+  <size njmax="4000" nconmax="8000"/>
+  <default>
+    <joint damping="0.8" armature="0.0005" limited="true"/>
+    <geom condim="3" friction="0.9 0.12 0.1"/>
+    <motor ctrllimited="true" ctrlrange="-15 15" forcelimited="true" forcerange="-15 15"/>
+  </default>
+  <asset>
+    <material name="tentacle_mat" rgba="0.85 0.38 0.08 1" metallic="0.05" roughness="0.45"/>
+    <material name="ground_mat" rgba="0.18 0.20 0.22 1"/>
+    <material name="hide_mat" rgba="0.45 0.40 0.33 1" metallic="0.0" roughness="0.85"/>
+    <material name="cube_mat" rgba="0.75 0.15 0.15 1"/>
+    <material name="ball_mat" rgba="0.35 0.85 0.20 1"/>
+    <material name="eye_mat" rgba="0.05 0.05 0.05 1" specular="0.9" shininess="0.8"/>
+    <mesh name="t1_real_01" file="t1_unit_01.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_02" file="t1_unit_02.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_03" file="t1_unit_03.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_04" file="t1_unit_04.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_05" file="t1_unit_05.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_06" file="t1_unit_06.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_07" file="t1_unit_07.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_08" file="t1_unit_08.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_09" file="t1_unit_09.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_10" file="t1_unit_10.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_11" file="t1_unit_11.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_12" file="t1_unit_12.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_13" file="t1_unit_13.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_14" file="t1_unit_14.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_15" file="t1_unit_15.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_16" file="t1_unit_16.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_17" file="t1_unit_17.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_18" file="t1_unit_18.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_19" file="t1_unit_19.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_20" file="t1_unit_20.stl" scale="0.0014 0.0014 0.0014"/>
+    <mesh name="t1_real_21" file="t1_unit_21.stl" scale="0.0014 0.0014 0.0014"/>
+  </asset>
+  <worldbody>
+    <light name="key" pos="1.5 -2.0 3.0" dir="-0.35 0.45 -1" directional="true" diffuse="0.9 0.9 0.9" specular="0.35 0.35 0.35"/>
+    <light name="fill" pos="-2.0 1.0 1.5" dir="0.45 -0.25 -0.8" directional="true" diffuse="0.45 0.45 0.45" specular="0.15 0.15 0.15"/>
+    <camera name="overview" pos="0 -1.65 1.35" xyaxes="1 0 0 0 0.63 0.78"/>
+    <geom name="ground" type="plane" size="5 5 0.1" pos="0 0 0" material="ground_mat"/>
+    <body name="torso" pos="0 0 0.3800">
+      <freejoint name="torso_free"/>
+      <geom name="torso_box" type="box" size="0.2800 0.1700 0.1200" material="hide_mat" mass="9.0"/>
+      <body name="hip_fl" pos="0.2200 0.1850 -0.1200">
+        <joint name="j_fl_abd" type="hinge" axis="1 0 0" range="-0.4363 0.4363" damping="1.2"/>
+        <geom name="g_fl_hip" type="sphere" size="0.0368" material="hide_mat" mass="0.15"/>
+        <body name="thigh_fl" pos="0 0 0">
+          <joint name="j_fl_hip" type="hinge" axis="0 1 0" range="-0.9599 0.9599" damping="1.2"/>
+          <geom name="g_fl_thigh" type="capsule" fromto="0 0 0 0 0 -0.1300" size="0.0320" material="hide_mat" mass="0.45"/>
+          <body name="shank_fl" pos="0 0 -0.1300">
+            <joint name="j_fl_knee" type="hinge" axis="0 1 0" range="-2.0944 -0.0349" damping="1.0"/>
+            <geom name="g_fl_shank" type="capsule" fromto="0 0 0 0 0 -0.1300" size="0.0256" material="hide_mat" mass="0.30"/>
+            <site name="foot_site_fl" pos="0 0 -0.1300" size="0.005"/>
+            <body name="wheel_fl" pos="0 0 -0.1300">
+              <!-- Continuous-rotation wheel, swapped in for the old fixed foot
+                   sphere per direct request (keep the knees, wheel the feet).
+                   Axis 0 1 0 matches the hip/knee swing axis -- a wheel that
+                   spins about the same axis the leg already bends about rolls
+                   in the robot's forward (+X) direction. limited="false"
+                   overrides this model's <default><joint limited="true">.  -->
+              <joint name="j_fl_wheel" type="hinge" axis="0 1 0" limited="false" damping="0.15" armature="0.01"/>
+              <geom name="g_fl_wheel" type="cylinder" size="0.0500 0.0280" zaxis="0 1 0" material="tentacle_mat" mass="0.12" friction="1.0 0.02 0.01" condim="4"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="hip_fr" pos="0.2200 -0.1850 -0.1200">
+        <joint name="j_fr_abd" type="hinge" axis="1 0 0" range="-0.4363 0.4363" damping="1.2"/>
+        <geom name="g_fr_hip" type="sphere" size="0.0368" material="hide_mat" mass="0.15"/>
+        <body name="thigh_fr" pos="0 0 0">
+          <joint name="j_fr_hip" type="hinge" axis="0 1 0" range="-0.9599 0.9599" damping="1.2"/>
+          <geom name="g_fr_thigh" type="capsule" fromto="0 0 0 0 0 -0.1300" size="0.0320" material="hide_mat" mass="0.45"/>
+          <body name="shank_fr" pos="0 0 -0.1300">
+            <joint name="j_fr_knee" type="hinge" axis="0 1 0" range="-2.0944 -0.0349" damping="1.0"/>
+            <geom name="g_fr_shank" type="capsule" fromto="0 0 0 0 0 -0.1300" size="0.0256" material="hide_mat" mass="0.30"/>
+            <site name="foot_site_fr" pos="0 0 -0.1300" size="0.005"/>
+            <body name="wheel_fr" pos="0 0 -0.1300">
+              <!-- Continuous-rotation wheel, swapped in for the old fixed foot
+                   sphere per direct request (keep the knees, wheel the feet).
+                   Axis 0 1 0 matches the hip/knee swing axis -- a wheel that
+                   spins about the same axis the leg already bends about rolls
+                   in the robot's forward (+X) direction. limited="false"
+                   overrides this model's <default><joint limited="true">.  -->
+              <joint name="j_fr_wheel" type="hinge" axis="0 1 0" limited="false" damping="0.15" armature="0.01"/>
+              <geom name="g_fr_wheel" type="cylinder" size="0.0500 0.0280" zaxis="0 1 0" material="tentacle_mat" mass="0.12" friction="1.0 0.02 0.01" condim="4"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="hip_rl" pos="-0.2200 0.1850 -0.1200">
+        <joint name="j_rl_abd" type="hinge" axis="1 0 0" range="-0.4363 0.4363" damping="1.2"/>
+        <geom name="g_rl_hip" type="sphere" size="0.0368" material="hide_mat" mass="0.15"/>
+        <body name="thigh_rl" pos="0 0 0">
+          <joint name="j_rl_hip" type="hinge" axis="0 1 0" range="-0.9599 0.9599" damping="1.2"/>
+          <geom name="g_rl_thigh" type="capsule" fromto="0 0 0 0 0 -0.1300" size="0.0320" material="hide_mat" mass="0.45"/>
+          <body name="shank_rl" pos="0 0 -0.1300">
+            <joint name="j_rl_knee" type="hinge" axis="0 1 0" range="-2.0944 -0.0349" damping="1.0"/>
+            <geom name="g_rl_shank" type="capsule" fromto="0 0 0 0 0 -0.1300" size="0.0256" material="hide_mat" mass="0.30"/>
+            <site name="foot_site_rl" pos="0 0 -0.1300" size="0.005"/>
+            <body name="wheel_rl" pos="0 0 -0.1300">
+              <!-- Continuous-rotation wheel, swapped in for the old fixed foot
+                   sphere per direct request (keep the knees, wheel the feet).
+                   Axis 0 1 0 matches the hip/knee swing axis -- a wheel that
+                   spins about the same axis the leg already bends about rolls
+                   in the robot's forward (+X) direction. limited="false"
+                   overrides this model's <default><joint limited="true">.  -->
+              <joint name="j_rl_wheel" type="hinge" axis="0 1 0" limited="false" damping="0.15" armature="0.01"/>
+              <geom name="g_rl_wheel" type="cylinder" size="0.0500 0.0280" zaxis="0 1 0" material="tentacle_mat" mass="0.12" friction="1.0 0.02 0.01" condim="4"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="hip_rr" pos="-0.2200 -0.1850 -0.1200">
+        <joint name="j_rr_abd" type="hinge" axis="1 0 0" range="-0.4363 0.4363" damping="1.2"/>
+        <geom name="g_rr_hip" type="sphere" size="0.0368" material="hide_mat" mass="0.15"/>
+        <body name="thigh_rr" pos="0 0 0">
+          <joint name="j_rr_hip" type="hinge" axis="0 1 0" range="-0.9599 0.9599" damping="1.2"/>
+          <geom name="g_rr_thigh" type="capsule" fromto="0 0 0 0 0 -0.1300" size="0.0320" material="hide_mat" mass="0.45"/>
+          <body name="shank_rr" pos="0 0 -0.1300">
+            <joint name="j_rr_knee" type="hinge" axis="0 1 0" range="-2.0944 -0.0349" damping="1.0"/>
+            <geom name="g_rr_shank" type="capsule" fromto="0 0 0 0 0 -0.1300" size="0.0256" material="hide_mat" mass="0.30"/>
+            <site name="foot_site_rr" pos="0 0 -0.1300" size="0.005"/>
+            <body name="wheel_rr" pos="0 0 -0.1300">
+              <!-- Continuous-rotation wheel, swapped in for the old fixed foot
+                   sphere per direct request (keep the knees, wheel the feet).
+                   Axis 0 1 0 matches the hip/knee swing axis -- a wheel that
+                   spins about the same axis the leg already bends about rolls
+                   in the robot's forward (+X) direction. limited="false"
+                   overrides this model's <default><joint limited="true">.  -->
+              <joint name="j_rr_wheel" type="hinge" axis="0 1 0" limited="false" damping="0.15" armature="0.01"/>
+              <geom name="g_rr_wheel" type="cylinder" size="0.0500 0.0280" zaxis="0 1 0" material="tentacle_mat" mass="0.12" friction="1.0 0.02 0.01" condim="4"/>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="head" pos="0.3500 0 0.0200">
+        <joint name="j_neck_pitch" type="hinge" axis="0 1 0" pos="-0.1000 0 0" range="0.0000 0.9599" damping="3.0"/>
+        <geom name="head_box" type="box" size="0.1000 0.1200 0.1000" material="hide_mat" mass="1.3"/>
+        <geom name="ear_l" type="box" pos="-0.0400 0.1250 0.0200" size="0.09 0.006 0.11" material="hide_mat" contype="0" conaffinity="0" mass="0.05"/>
+        <geom name="ear_r" type="box" pos="-0.0400 -0.1250 0.0200" size="0.09 0.006 0.11" material="hide_mat" contype="0" conaffinity="0" mass="0.05"/>
+        <body name="trunk_mount" pos="0.0900 0 -0.0200">
+          <inertial pos="0 0 0" mass="0.03" diaginertia="2e-5 2e-5 2e-5"/>
+          <joint name="j_trunk_drop" type="slide" axis="0 0 -1" limited="true" range="0 0.12" damping="2.0"/>
+          <joint name="j_trunk_pitch" type="hinge" axis="0 1 0" range="-1.3963 0.6981" damping="0.5"/>
+          <body name="tentacle_1" pos="0 0 0" quat="0.7071068 0 0.7071068 0">
+            <site name="t1_c1_base" pos="0 0 0" size="0.00196"/>
+            <site name="t1_c2_base" pos="0 0 0" size="0.00196"/>
+            <site name="t1_c3_base" pos="0 0 0" size="0.00196"/>
+            <body name="t1_u01" pos="0 0 0">
+              <inertial pos="0 0 0" mass="0.01903218163" diaginertia="3.499232667e-06 4.282618857e-06 6.386214993e-06"/>
+              <geom name="t1_real_geom_01" type="mesh" mesh="t1_real_21" material="tentacle_mat" contype="1" conaffinity="1"/>
+              <geom name="t1_axis_01" type="capsule" fromto="0 0 0 0 0 0.03767682331" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+              <site name="t1_c1_01" pos="0.027964888 0 0" size="0.001764"/>
+              <site name="t1_c2_01" pos="-0.013982444 0.024218348 0" size="0.001764"/>
+              <site name="t1_c3_01" pos="-0.013982444 -0.024218348 0" size="0.001764"/>
+              <body name="t1_u02" pos="0 0 0.03767682331">
+                <joint name="t1_j02" type="ball" limited="true" range="0 0.523599" stiffness="2.53134" damping="0.2744"/>
+                <inertial pos="0 0 0" mass="0.02762170425" diaginertia="5.495036974e-06 6.451986325e-06 8.120970493e-06"/>
+                <geom name="t1_real_geom_02" type="mesh" mesh="t1_real_20" material="tentacle_mat" contype="1" conaffinity="1"/>
+                <geom name="t1_axis_02" type="capsule" fromto="0 0 0 0 0 0.04061007398" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                <site name="t1_c1_02" pos="0.026180504 0 0" size="0.001764"/>
+                <site name="t1_c2_02" pos="-0.013090252 0.022672986 0" size="0.001764"/>
+                <site name="t1_c3_02" pos="-0.013090252 -0.022672986 0" size="0.001764"/>
+                <body name="t1_u03" pos="0 0 0.04061007398">
+                  <joint name="t1_j03" type="ball" limited="true" range="0 0.523599" stiffness="2.0756988" damping="0.225008"/>
+                  <inertial pos="0 0 0" mass="0.02218499647" diaginertia="3.812569034e-06 4.476027433e-06 5.635455889e-06"/>
+                  <geom name="t1_real_geom_03" type="mesh" mesh="t1_real_19" material="tentacle_mat" contype="1" conaffinity="1"/>
+                  <geom name="t1_axis_03" type="capsule" fromto="0 0 0 0 0 0.03773946995" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                  <site name="t1_c1_03" pos="0.024335262 0 0" size="0.001764"/>
+                  <site name="t1_c2_03" pos="-0.01216768 0.021074998 0" size="0.001764"/>
+                  <site name="t1_c3_03" pos="-0.01216768 -0.021074998 0" size="0.001764"/>
+                  <body name="t1_u04" pos="0 0 0.03773946995">
+                    <joint name="t1_j04" type="ball" limited="true" range="0 0.523599" stiffness="1.7020723" damping="0.18450656"/>
+                    <inertial pos="0 0 0" mass="0.01781828405" diaginertia="2.645271016e-06 3.105243184e-06 3.910776108e-06"/>
+                    <geom name="t1_real_geom_04" type="mesh" mesh="t1_real_18" material="tentacle_mat" contype="1" conaffinity="1"/>
+                    <geom name="t1_axis_04" type="capsule" fromto="0 0 0 0 0 0.03507173236" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                    <site name="t1_c1_04" pos="0.022620458 0 0" size="0.001764"/>
+                    <site name="t1_c2_04" pos="-0.01131018 0.019589906 0" size="0.001764"/>
+                    <site name="t1_c3_04" pos="-0.01131018 -0.019589906 0" size="0.001764"/>
+                    <body name="t1_u05" pos="0 0 0.03507173236">
+                      <joint name="t1_j05" type="ball" limited="true" range="0 0.523599" stiffness="1.3957013" damping="0.15129387"/>
+                      <inertial pos="0 0 0" mass="0.01431101644" diaginertia="1.835398754e-06 2.154277058e-06 2.714000552e-06"/>
+                      <geom name="t1_real_geom_05" type="mesh" mesh="t1_real_17" material="tentacle_mat" contype="1" conaffinity="1"/>
+                      <geom name="t1_axis_05" type="capsule" fromto="0 0 0 0 0 0.03259260697" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                      <site name="t1_c1_05" pos="0.02102688 0 0" size="0.001764"/>
+                      <site name="t1_c2_05" pos="-0.01051344 0.018209772 0" size="0.001764"/>
+                      <site name="t1_c3_05" pos="-0.01051344 -0.018209772 0" size="0.001764"/>
+                      <body name="t1_u06" pos="0 0 0.03259260697">
+                        <joint name="t1_j06" type="ball" limited="true" range="0 0.523599" stiffness="1.1444744" damping="0.1240631"/>
+                        <inertial pos="0 0 0" mass="0.01149390256" diaginertia="1.273482194e-06 1.49452813e-06 1.883493906e-06"/>
+                        <geom name="t1_real_geom_06" type="mesh" mesh="t1_real_16" material="tentacle_mat" contype="1" conaffinity="1"/>
+                        <geom name="t1_axis_06" type="capsule" fromto="0 0 0 0 0 0.03028871391" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                        <site name="t1_c1_06" pos="0.019545806 0 0" size="0.001764"/>
+                        <site name="t1_c2_06" pos="-0.009772952 0.016927246 0" size="0.001764"/>
+                        <site name="t1_c3_06" pos="-0.009772952 -0.016927246 0" size="0.001764"/>
+                        <body name="t1_u07" pos="0 0 0.03028871391">
+                          <joint name="t1_j07" type="ball" limited="true" range="0 0.523599" stiffness="0.93846858" damping="0.10173037"/>
+                          <inertial pos="0 0 0" mass="0.00923101494" diaginertia="8.835893311e-07 1.036806924e-06 1.307136648e-06"/>
+                          <geom name="t1_real_geom_07" type="mesh" mesh="t1_real_15" material="tentacle_mat" contype="1" conaffinity="1"/>
+                          <geom name="t1_axis_07" type="capsule" fromto="0 0 0 0 0 0.02814758674" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                          <site name="t1_c1_07" pos="0.018169494 0 0" size="0.001764"/>
+                          <site name="t1_c2_07" pos="-0.009084796 0.015735272 0" size="0.001764"/>
+                          <site name="t1_c3_07" pos="-0.009084796 -0.015735272 0" size="0.001764"/>
+                          <body name="t1_u08" pos="0 0 0.02814758674">
+                            <joint name="t1_j08" type="ball" limited="true" range="0 0.523599" stiffness="0.76954451" damping="0.08342103"/>
+                            <inertial pos="0 0 0" mass="0.0074133619" diaginertia="6.130600543e-07 7.192537023e-07 9.071540211e-07"/>
+                            <geom name="t1_real_geom_08" type="mesh" mesh="t1_real_14" material="tentacle_mat" contype="1" conaffinity="1"/>
+                            <geom name="t1_axis_08" type="capsule" fromto="0 0 0 0 0 0.02615783737" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                            <site name="t1_c1_08" pos="0.016890496 0 0" size="0.001764"/>
+                            <site name="t1_c2_08" pos="-0.008445248 0.014627578 0" size="0.001764"/>
+                            <site name="t1_c3_08" pos="-0.008445248 -0.014627578 0" size="0.001764"/>
+                            <body name="t1_u09" pos="0 0 0.02615783737">
+                              <joint name="t1_j09" type="ball" limited="true" range="0 0.523599" stiffness="0.63102739" damping="0.06840449"/>
+                              <inertial pos="0 0 0" mass="0.0059531423" diaginertia="4.253374596e-07 4.98928825e-07 6.295437127e-07"/>
+                              <geom name="t1_real_geom_09" type="mesh" mesh="t1_real_13" material="tentacle_mat" contype="1" conaffinity="1"/>
+                              <geom name="t1_axis_09" type="capsule" fromto="0 0 0 0 0 0.02430870694" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                              <site name="t1_c1_09" pos="0.015701854 0 0" size="0.001764"/>
+                              <site name="t1_c2_09" pos="-0.007850976 0.013598186 0" size="0.001764"/>
+                              <site name="t1_c3_09" pos="-0.007850976 -0.013598186 0" size="0.001764"/>
+                              <body name="t1_u10" pos="0 0 0.02430870694">
+                                <joint name="t1_j10" type="ball" limited="true" range="0 0.523599" stiffness="0.51744294" damping="0.05609079"/>
+                                <inertial pos="0 0 0" mass="0.00478014061" diaginertia="2.950809062e-07 3.460680109e-07 4.368701672e-07"/>
+                                <geom name="t1_real_geom_10" type="mesh" mesh="t1_real_12" material="tentacle_mat" contype="1" conaffinity="1"/>
+                                <geom name="t1_axis_10" type="capsule" fromto="0 0 0 0 0 0.02259024019" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                                <site name="t1_c1_10" pos="0.014597198 0 0" size="0.001764"/>
+                                <site name="t1_c2_10" pos="-0.007298648 0.012641608 0" size="0.001764"/>
+                                <site name="t1_c3_10" pos="-0.007298648 -0.012641608 0" size="0.001764"/>
+                                <body name="t1_u11" pos="0 0 0.02259024019">
+                                  <joint name="t1_j11" type="ball" limited="true" range="0 0.523599" stiffness="0.42430129" damping="0.0459963"/>
+                                  <inertial pos="0 0 0" mass="0.00383766236" diaginertia="2.04688596e-07 2.400094962e-07 3.031359743e-07"/>
+                                  <geom name="t1_real_geom_11" type="mesh" mesh="t1_real_11" material="tentacle_mat" contype="1" conaffinity="1"/>
+                                  <geom name="t1_axis_11" type="capsule" fromto="0 0 0 0 0 0.02099329001" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                                  <site name="t1_c1_11" pos="0.013570746 0 0" size="0.001764"/>
+                                  <site name="t1_c2_11" pos="-0.006785324 0.011752552 0" size="0.001764"/>
+                                  <site name="t1_c3_11" pos="-0.006785324 -0.011752552 0" size="0.001764"/>
+                                  <body name="t1_u12" pos="0 0 0.02099329001">
+                                    <joint name="t1_j12" type="ball" limited="true" range="0 0.523599" stiffness="0.34792891" damping="0.03771628"/>
+                                    <inertial pos="0 0 0" mass="0.0030805859" diaginertia="1.41972005e-07 1.664327773e-07 2.103213408e-07"/>
+                                    <geom name="t1_real_geom_12" type="mesh" mesh="t1_real_10" material="tentacle_mat" contype="1" conaffinity="1"/>
+                                    <geom name="t1_axis_12" type="capsule" fromto="0 0 0 0 0 0.01950918788" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                                    <site name="t1_c1_12" pos="0.012616716 0 0" size="0.001764"/>
+                                    <site name="t1_c2_12" pos="-0.006308358 0.010926314 0" size="0.001764"/>
+                                    <site name="t1_c3_12" pos="-0.006308358 -0.010926314 0" size="0.001764"/>
+                                    <body name="t1_u13" pos="0 0 0.01950918788">
+                                      <joint name="t1_j13" type="ball" limited="true" range="0 0.523599" stiffness="0.28530054" damping="0.03092831"/>
+                                      <inertial pos="0 0 0" mass="0.00247236458" diaginertia="9.845534274e-08 1.153908532e-07 1.459049469e-07"/>
+                                      <geom name="t1_real_geom_13" type="mesh" mesh="t1_real_09" material="tentacle_mat" contype="1" conaffinity="1"/>
+                                      <geom name="t1_axis_13" type="capsule" fromto="0 0 0 0 0 0.01812999853" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                                      <site name="t1_c1_13" pos="0.01173011 0 0" size="0.001764"/>
+                                      <site name="t1_c2_13" pos="-0.005865006 0.010158582 0" size="0.001764"/>
+                                      <site name="t1_c3_13" pos="-0.005865006 -0.010158582 0" size="0.001764"/>
+                                      <body name="t1_u14" pos="0 0 0.01812999853">
+                                        <joint name="t1_j14" type="ball" limited="true" range="0 0.523599" stiffness="0.23394658" damping="0.02536142"/>
+                                        <inertial pos="0 0 0" mass="0.00198367876" diaginertia="6.826152994e-08 7.998290679e-08 1.011966094e-07"/>
+                                        <geom name="t1_real_geom_14" type="mesh" mesh="t1_real_08" material="tentacle_mat" contype="1" conaffinity="1"/>
+                                        <geom name="t1_axis_14" type="capsule" fromto="0 0 0 0 0 0.01684827004" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                                        <site name="t1_c1_14" pos="0.010906224 0 0" size="0.001764"/>
+                                        <site name="t1_c2_14" pos="-0.005453112 0.009445044 0" size="0.001764"/>
+                                        <site name="t1_c3_14" pos="-0.005453112 -0.009445044 0" size="0.001764"/>
+                                        <body name="t1_u15" pos="0 0 0.01684827004">
+                                          <joint name="t1_j15" type="ball" limited="true" range="0 0.523599" stiffness="0.19183647" damping="0.02079609"/>
+                                          <inertial pos="0 0 0" mass="0.00159110497" diaginertia="4.731479877e-08 5.542367728e-08 7.017096441e-08"/>
+                                          <geom name="t1_real_geom_15" type="mesh" mesh="t1_real_07" material="tentacle_mat" contype="1" conaffinity="1"/>
+                                          <geom name="t1_axis_15" type="capsule" fromto="0 0 0 0 0 0.01565708655" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                                          <site name="t1_c1_15" pos="0.010140452 0 0" size="0.001764"/>
+                                          <site name="t1_c2_15" pos="-0.005070226 0.008781878 0" size="0.001764"/>
+                                          <site name="t1_c3_15" pos="-0.005070226 -0.008781878 0" size="0.001764"/>
+                                          <body name="t1_u16" pos="0 0 0.01565708655">
+                                            <joint name="t1_j16" type="ball" limited="true" range="0 0.523599" stiffness="0.15730666" damping="0.01705053"/>
+                                            <inertial pos="0 0 0" mass="0.00127569246" diaginertia="3.278383133e-08 3.839041789e-08 4.864080153e-08"/>
+                                            <geom name="t1_real_geom_16" type="mesh" mesh="t1_real_06" material="tentacle_mat" contype="1" conaffinity="1"/>
+                                            <geom name="t1_axis_16" type="capsule" fromto="0 0 0 0 0 0.01455011397" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                                            <site name="t1_c1_16" pos="0.009428874 0 0" size="0.001764"/>
+                                            <site name="t1_c2_16" pos="-0.004714486 0.008165654 0" size="0.001764"/>
+                                            <site name="t1_c3_16" pos="-0.004714486 -0.008165654 0" size="0.001764"/>
+                                            <body name="t1_u17" pos="0 0 0.01455011397">
+                                              <joint name="t1_j17" type="ball" limited="true" range="0 0.523599" stiffness="0.12899201" damping="0.01398411"/>
+                                              <inertial pos="0 0 0" mass="0.00102228063" diaginertia="2.270495449e-08 2.657893523e-08 3.370191256e-08"/>
+                                              <geom name="t1_real_geom_17" type="mesh" mesh="t1_real_05" material="tentacle_mat" contype="1" conaffinity="1"/>
+                                              <geom name="t1_axis_17" type="capsule" fromto="0 0 0 0 0 0.01352137773" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                                              <site name="t1_c1_17" pos="0.00876757 0 0" size="0.001764"/>
+                                              <site name="t1_c2_17" pos="-0.004383736 0.007592942 0" size="0.001764"/>
+                                              <site name="t1_c3_17" pos="-0.004383736 -0.007592942 0" size="0.001764"/>
+                                              <body name="t1_u18" pos="0 0 0.01352137773">
+                                                <joint name="t1_j18" type="ball" limited="true" range="0 0.523599" stiffness="0.10577091" damping="0.01146649"/>
+                                                <inertial pos="0 0 0" mass="0.00081872042" diaginertia="1.571627405e-08 1.839111935e-08 2.333932492e-08"/>
+                                                <geom name="t1_real_geom_18" type="mesh" mesh="t1_real_04" material="tentacle_mat" contype="1" conaffinity="1"/>
+                                                <geom name="t1_axis_18" type="capsule" fromto="0 0 0 0 0 0.01256533726" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                                                <site name="t1_c1_18" pos="0.008153012 0 0" size="0.001764"/>
+                                                <site name="t1_c2_18" pos="-0.004076506 0.007060704 0" size="0.001764"/>
+                                                <site name="t1_c3_18" pos="-0.004076506 -0.007060704 0" size="0.001764"/>
+                                                <body name="t1_u19" pos="0 0 0.01256533726">
+                                                  <joint name="t1_j19" type="ball" limited="true" range="0 0.523599" stiffness="0.08673441" damping="0.00940163"/>
+                                                  <inertial pos="0 0 0" mass="0.0006551986" diaginertia="1.087107048e-08 1.27163887e-08 1.615234744e-08"/>
+                                                  <geom name="t1_real_geom_19" type="mesh" mesh="t1_real_03" material="tentacle_mat" contype="1" conaffinity="1"/>
+                                                  <geom name="t1_axis_19" type="capsule" fromto="0 0 0 0 0 0.01167686177" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                                                  <site name="t1_c1_19" pos="0.007581868 0 0" size="0.001764"/>
+                                                  <site name="t1_c2_19" pos="-0.003790934 0.006566098 0" size="0.001764"/>
+                                                  <site name="t1_c3_19" pos="-0.003790934 -0.006566098 0" size="0.001764"/>
+                                                  <body name="t1_u20" pos="0 0 0.01167686177">
+                                                    <joint name="t1_j20" type="ball" limited="true" range="0 0.523599" stiffness="0.07112105" damping="0.00771064"/>
+                                                    <inertial pos="0 0 0" mass="0.00052388105" diaginertia="7.513531442e-09 8.785088701e-09 1.116969769e-08"/>
+                                                    <geom name="t1_real_geom_20" type="mesh" mesh="t1_real_02" material="tentacle_mat" contype="1" conaffinity="1"/>
+                                                    <geom name="t1_axis_20" type="capsule" fromto="0 0 0 0 0 0.01085121261" size="0.003781624" material="tentacle_mat" contype="0" conaffinity="0"/>
+                                                    <site name="t1_c1_20" pos="0.0070511 0 0" size="0.001764"/>
+                                                    <site name="t1_c2_20" pos="-0.00352555 0.00610638 0" size="0.001764"/>
+                                                    <site name="t1_c3_20" pos="-0.00352555 -0.00610638 0" size="0.001764"/>
+                                                    <body name="t1_u21" pos="0 0 0.01085121261">
+                                                      <joint name="t1_j21" type="ball" limited="true" range="0 0.523599" stiffness="0.05832029" damping="0.00632149"/>
+                                                      <inertial pos="0 0 0" mass="0.0004183914" diaginertia="5.187240153e-09 6.062237292e-09 7.715857343e-09"/>
+                                                      <geom name="t1_real_geom_21" type="mesh" mesh="t1_real_01" material="tentacle_mat" contype="1" conaffinity="1"/>
+                                                      <site name="t1_c1_21" pos="0.006557768 0 0" size="0.001764"/>
+                                                      <site name="t1_c2_21" pos="-0.003278884 0.005679198 0" size="0.001764"/>
+                                                      <site name="t1_c3_21" pos="-0.003278884 -0.005679198 0" size="0.001764"/>
+                                                      <!-- tip_cam: eye-in-trunk. Rides the last trunk unit, looks along the tip's own +Z
+                                                           (xyaxes 1 0 0 / 0 -1 0 => view = +Z), offset slightly past the mesh so the trunk does not fill the frame. -->
+                                                      <camera name="tip_cam" pos="0 0 0.014" xyaxes="1 0 0 0 -1 0"/>
+                                                    </body>
+                                                  </body>
+                                                </body>
+                                              </body>
+                                            </body>
+                                          </body>
+                                        </body>
+                                      </body>
+                                    </body>
+                                  </body>
+                                </body>
+                              </body>
+                            </body>
+                          </body>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+        <camera name="eye_left" pos="0.0600 0.0900 0.0600" xyaxes="-0.1392 -0.9903 0.0000 0.4185 -0.0588 0.9063"/>
+        <geom name="eye_left_marker" type="sphere" pos="0.0600 0.0900 0.0600" size="0.014" material="eye_mat" contype="0" conaffinity="0"/>
+        <camera name="eye_right" pos="0.0600 -0.0900 0.0600" xyaxes="0.1392 -0.9903 0.0000 0.4185 0.0588 0.9063"/>
+        <geom name="eye_right_marker" type="sphere" pos="0.0600 -0.0900 0.0600" size="0.014" material="eye_mat" contype="0" conaffinity="0"/>
+        <!-- trunk_cam: direct user request -- mounted right above where the
+             trunk itself attaches (trunk_mount sits at head-local
+             0.09,0,-0.02), dead centre, y=0 -- NOT outboard and NOT verged
+             like eye_left/eye_right. Centring the object in THIS camera's
+             frame is, by construction, centring it on the trunk's own reach
+             axis, which the off-axis eye cameras never gave for free (that
+             mismatch -- x_norm sitting at +0.20 to +0.29, not 0, at the real
+             target distance -- was the whole source of the earlier tuning
+             grief; see elephant_grasp_cv.py).
+
+             Height (Z) was NOT a free choice -- the robot's own trunk hangs/
+             curls UP in front of the face by default (no cable tension) and
+             completely fills a face-LEVEL camera's frame; confirmed directly
+             by rendering and looking (saved test images), not assumed. A
+             first pass shipped this at z=0.45 local to clear that -- correct
+             functionally, but it read as a periscope towering over the
+             robot's back, not "mounted on the face" (direct user pushback:
+             "why is the camera all up there... it should be mounted to the
+             face"). Re-tested with real WALKING runs (a static teleport test
+             at fixed poses is a poor proxy here -- gait bob/pitch changes
+             the trunk/camera geometry frame to frame in a way a frozen pose
+             doesn't capture) at several lower heights: z=0.18 local (barely
+             above the head box's own top, genuinely face-level, not a mast)
+             gave 100% detection across a full logged approach (266/266
+             camera frames, ox 0.58 down to ~0) with steering about as
+             well-centred as the z=0.45 version -- z=0.12 (fully inside the
+             head box) also mostly worked (96%) but steering got
+             significantly worse at close range (x_norm drifting to -0.55+),
+             so z=0.18 is the shipped value: the lowest, most face-anchored
+             height tested that didn't cost real accuracy. Tilt and xyaxes
+             computed with the exact same _cam_axes formula
+             build_elephant_quadruped.py uses for eye_left/eye_right, at
+             yaw=0 (no vergence -- there is only one of these, looking
+             straight down the trunk's own axis, not two eyes fixating a
+             shared point). -->
+        <camera name="trunk_cam" pos="0.0900 0.0000 0.1800" xyaxes="0 -1 0 0.6428 0 0.7660"/>
+        <geom name="trunk_cam_marker" type="sphere" pos="0.0900 0.0000 0.1800" size="0.014" material="eye_mat" contype="0" conaffinity="0"/>
+      </body>
+      <!-- chest_cam: replaces the old chest_sensor rangefinder fan. Torso front-bottom corner,
+           pitched down 35 deg (view = (cos35,0,-sin35)), so the box stays in frame at close range
+           where the face-level trunk_cam can no longer see it. -->
+      <camera name="chest_cam" pos="0.3000 0 -0.1400" xyaxes="0 -1 0 0.5736 0 0.8192" fovy="85"/>
+      <geom name="chest_cam_marker" type="sphere" pos="0.3000 0 -0.1400" size="0.014" material="eye_mat" contype="0" conaffinity="0" mass="0.001"/>
+    </body>
+    <body name="test_cube" pos="1.05 0.0 0.101">
+      <freejoint name="cube_free"/>
+      <!-- Tried thinning this from 0.035 0.035 0.10 (7x7x20cm) to
+           0.015 0.015 0.10 (3x3x20cm) per direct request, on the
+           hypothesis that a narrower cross-section brings the box's
+           near face closer to its own centre, so the trunk-shaft
+           contact that triggers the grasp (elephant_grasp_cv.py round 4)
+           would happen with the box's CENTRE closer to the mount.
+           DIRECTLY TESTED AND REVERTED: an isolated 45-simulated-second
+           run with the thinner box never touched it even once
+           (min_upright_seen stayed at exactly 1.0000 the whole run,
+           trigger=None) -- a narrower target is a smaller thing for the
+           trunk's own sway/droop to graze while walking, so thinning it
+           made contact LESS likely, not more precisely positioned when
+           it happens. Reverted to the original 7x7x20cm size below; see
+           the roadmap for the full result. -->
+      <!-- Footprint halved to 3.5x3.5 cm (half-size 0.0175) on request, height still 20 cm, mass still 0.5 kg. -->
+      <geom name="test_cube_geom" type="box" size="0.0175 0.0175 0.10" mass="0.5" material="cube_mat" contype="1" conaffinity="1" friction="1.5 0.15 0.05"/>
+    </body>
+  </worldbody>
+  <tendon>
+    <spatial name="t1_tendon_1" width="0.0018" stiffness="0" damping="0.05" rgba="0.95 0.95 0.95 1">
+      <site site="t1_c1_base"/>
+      <site site="t1_c1_01"/>
+      <site site="t1_c1_02"/>
+      <site site="t1_c1_03"/>
+      <site site="t1_c1_04"/>
+      <site site="t1_c1_05"/>
+      <site site="t1_c1_06"/>
+      <site site="t1_c1_07"/>
+      <site site="t1_c1_08"/>
+      <site site="t1_c1_09"/>
+      <site site="t1_c1_10"/>
+      <site site="t1_c1_11"/>
+      <site site="t1_c1_12"/>
+      <site site="t1_c1_13"/>
+      <site site="t1_c1_14"/>
+      <site site="t1_c1_15"/>
+      <site site="t1_c1_16"/>
+      <site site="t1_c1_17"/>
+      <site site="t1_c1_18"/>
+      <site site="t1_c1_19"/>
+      <site site="t1_c1_20"/>
+      <site site="t1_c1_21"/>
+    </spatial>
+    <spatial name="t1_tendon_2" width="0.0018" stiffness="0" damping="0.05" rgba="0.95 0.95 0.95 1">
+      <site site="t1_c2_base"/>
+      <site site="t1_c2_01"/>
+      <site site="t1_c2_02"/>
+      <site site="t1_c2_03"/>
+      <site site="t1_c2_04"/>
+      <site site="t1_c2_05"/>
+      <site site="t1_c2_06"/>
+      <site site="t1_c2_07"/>
+      <site site="t1_c2_08"/>
+      <site site="t1_c2_09"/>
+      <site site="t1_c2_10"/>
+      <site site="t1_c2_11"/>
+      <site site="t1_c2_12"/>
+      <site site="t1_c2_13"/>
+      <site site="t1_c2_14"/>
+      <site site="t1_c2_15"/>
+      <site site="t1_c2_16"/>
+      <site site="t1_c2_17"/>
+      <site site="t1_c2_18"/>
+      <site site="t1_c2_19"/>
+      <site site="t1_c2_20"/>
+      <site site="t1_c2_21"/>
+    </spatial>
+    <spatial name="t1_tendon_3" width="0.0018" stiffness="0" damping="0.05" rgba="0.95 0.95 0.95 1">
+      <site site="t1_c3_base"/>
+      <site site="t1_c3_01"/>
+      <site site="t1_c3_02"/>
+      <site site="t1_c3_03"/>
+      <site site="t1_c3_04"/>
+      <site site="t1_c3_05"/>
+      <site site="t1_c3_06"/>
+      <site site="t1_c3_07"/>
+      <site site="t1_c3_08"/>
+      <site site="t1_c3_09"/>
+      <site site="t1_c3_10"/>
+      <site site="t1_c3_11"/>
+      <site site="t1_c3_12"/>
+      <site site="t1_c3_13"/>
+      <site site="t1_c3_14"/>
+      <site site="t1_c3_15"/>
+      <site site="t1_c3_16"/>
+      <site site="t1_c3_17"/>
+      <site site="t1_c3_18"/>
+      <site site="t1_c3_19"/>
+      <site site="t1_c3_20"/>
+      <site site="t1_c3_21"/>
+    </spatial>
+  </tendon>
+  <actuator>
+    <motor name="t1_pull_1" tendon="t1_tendon_1" gear="-1" ctrllimited="true" ctrlrange="0.0000 60.0000" forcerange="0.0000 60.0000"/>
+    <motor name="t1_pull_2" tendon="t1_tendon_2" gear="-1" ctrllimited="true" ctrlrange="0.0000 60.0000" forcerange="0.0000 60.0000"/>
+    <motor name="t1_pull_3" tendon="t1_tendon_3" gear="-1" ctrllimited="true" ctrlrange="0.0000 60.0000" forcerange="0.0000 60.0000"/>
+    <position name="act_j_neck_pitch" joint="j_neck_pitch" kp="2000.0" kv="12.0" ctrlrange="0.0000 0.9599"/>
+    <position name="act_j_fl_abd" joint="j_fl_abd" kp="2000.0" kv="12.0" ctrlrange="-0.4363 0.4363"/>
+    <position name="act_j_fl_hip" joint="j_fl_hip" kp="2000.0" kv="12.0" ctrlrange="-0.9599 0.9599"/>
+    <position name="act_j_fl_knee" joint="j_fl_knee" kp="2000.0" kv="12.0" ctrlrange="-2.0944 -0.0349"/>
+    <position name="act_j_fr_abd" joint="j_fr_abd" kp="2000.0" kv="12.0" ctrlrange="-0.4363 0.4363"/>
+    <position name="act_j_fr_hip" joint="j_fr_hip" kp="2000.0" kv="12.0" ctrlrange="-0.9599 0.9599"/>
+    <position name="act_j_fr_knee" joint="j_fr_knee" kp="2000.0" kv="12.0" ctrlrange="-2.0944 -0.0349"/>
+    <position name="act_j_rl_abd" joint="j_rl_abd" kp="2000.0" kv="12.0" ctrlrange="-0.4363 0.4363"/>
+    <position name="act_j_rl_hip" joint="j_rl_hip" kp="2000.0" kv="12.0" ctrlrange="-0.9599 0.9599"/>
+    <position name="act_j_rl_knee" joint="j_rl_knee" kp="2000.0" kv="12.0" ctrlrange="-2.0944 -0.0349"/>
+    <position name="act_j_rr_abd" joint="j_rr_abd" kp="2000.0" kv="12.0" ctrlrange="-0.4363 0.4363"/>
+    <position name="act_j_rr_hip" joint="j_rr_hip" kp="2000.0" kv="12.0" ctrlrange="-0.9599 0.9599"/>
+    <position name="act_j_rr_knee" joint="j_rr_knee" kp="2000.0" kv="12.0" ctrlrange="-2.0944 -0.0349"/>
+    <position name="act_j_trunk_pitch" joint="j_trunk_pitch" kp="300.0" kv="6.0" ctrlrange="-1.3963 0.6981" forcerange="-20 20"/>
+    <position name="act_j_trunk_drop" joint="j_trunk_drop" kp="600.0" kv="14.0" ctrlrange="0 0.12" forcerange="-120 120"/>
+    <!-- STABILITY FIX (camera-only build): wheel friction 1.6 -> 1.0. With 1.6, spinning in place for ~15 s
+         scrubbed hard enough to throw a front hip to its joint limit (torso sags 7 cm, pitches 16 deg)
+         in roughly 1 in 10 starts; at 1.0 it held in 32 of 32 spin trials.
+         NUMERICS FIX (camera-only build): kv was 8.0 with wheel armature 0.001, i.e. a velocity
+         servo ~13x stiffer than the 2 ms step can resolve once forcerange clipping kicks in. The
+         wheels chattered and the robot drove BACKWARD in ~8 of 10 start conditions when commanded
+         forward. kv=1.0 / armature=0.01 drives forward in 10 of 10, deterministically.
+         Wheel drive: velocity-controlled (ctrl = target rad/s), not
+         position, since these joints spin continuously (limited="false"
+         above). kv is the velocity-servo gain; ctrlrange bounds commanded
+         speed. See wheel_drive.py for how direction/turn_bias map to
+         these per-wheel targets (same skid-steer sign convention the old
+         leg gait's turn_bias already used, so VisionApproach needed no
+         changes). -->
+    <velocity name="act_j_fl_wheel" joint="j_fl_wheel" kv="1.0" ctrlrange="-14 14" forcerange="-25 25"/>
+    <velocity name="act_j_fr_wheel" joint="j_fr_wheel" kv="1.0" ctrlrange="-14 14" forcerange="-25 25"/>
+    <velocity name="act_j_rl_wheel" joint="j_rl_wheel" kv="1.0" ctrlrange="-14 14" forcerange="-25 25"/>
+    <velocity name="act_j_rr_wheel" joint="j_rr_wheel" kv="1.0" ctrlrange="-14 14" forcerange="-25 25"/>
+  </actuator>
+  <keyframe>
+    <key name="stand" ctrl="0 0 0 0 0.000000 0.376383 -0.752767 0.000000 0.376383 -0.752767 0.000000 0.376383 -0.752767 0.000000 0.376383 -0.752767 0 0"/>
+  </keyframe>
+</mujoco>

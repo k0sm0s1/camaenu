@@ -1,0 +1,4 @@
+mujoco>=3.0
+numpy
+# optional, only for dev/cma_wrap.py
+cma
